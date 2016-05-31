@@ -18,7 +18,15 @@
           [applications: [:ueberauth_authy]]
         end
 
-  3. Configure Authy
+  3. Configure ueberauth and the PhoneVerification strategy
+
+    config :ueberauth, Ueberauth,
+      base_path: "/api/auth",
+      providers: [
+        authy: { Ueberauth.Strategy.Authy.PhoneVerification, [
+          via: "sms", country_code: "61"] }]
+
+  4. Configure Authy
 
         config :authy,
           api_key: System.get_env("AUTHY_API_KEY")
