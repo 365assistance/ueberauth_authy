@@ -17,3 +17,8 @@
         def application do
           [applications: [:ueberauth_authy]]
         end
+
+  3. Configure Authy
+
+        config :authy,
+          api_key: System.get_env("AUTHY_API_KEY")
