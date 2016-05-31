@@ -11,10 +11,11 @@ defmodule UeberauthAuthy.Mixfile do
   end
 
   def application do
-    [applications: [:ueberauth, :logger]]
+    [applications: [:ueberauth, :authy, :logger]]
   end
 
   defp deps do
-    [{:ueberauth, "~> 0.2.0"}]
+    [{:ueberauth, "~> 0.2.0"},
+     {:authy, github: "365assistance/authy", tag: "0.2.0"}]
   end
 end
