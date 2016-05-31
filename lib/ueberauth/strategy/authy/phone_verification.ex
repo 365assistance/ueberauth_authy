@@ -19,7 +19,7 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
   See https://docs.authy.com/phone_verification.html#sending-the-verification-code
   """
   def handle_request!(conn = %{assigns: %{authy: authy = %{via: _, phone_number: _, country_code: _}}}) do
-    case Authy.PhoneVerification.start(authy) |> IO.inspect do
+    case Authy.PhoneVerification.start(authy) do
       {:ok, _} -> conn
       {:error, message} -> set_errors!(conn, [error("authy", message)])
     end
