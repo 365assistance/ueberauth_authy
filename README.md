@@ -1,15 +1,13 @@
 # UeberauthAuthy
 
-**TODO: Add description**
+[Ueberauth](https://github.com/ueberauth/ueberauth) strategy using the [Authy Phone Verification API](https://docs.authy.com/phone_verification.html).
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
   1. Add ueberauth_authy to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:ueberauth_authy, "~> 0.0.1"}]
+          [{:ueberauth_authy, github: "365assistance/ueberauth_authy"}]
         end
 
   2. Ensure ueberauth_authy is started before your application:
@@ -17,4 +15,3 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
         def application do
           [applications: [:ueberauth_authy]]
         end
-
