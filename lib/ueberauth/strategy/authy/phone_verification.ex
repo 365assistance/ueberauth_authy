@@ -40,4 +40,10 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
       {:error, message} -> set_errors!(conn, [error("authy", message)])
     end
   end
+
+  defp authy_with_defaults(conn = %{assigns: %{authy: authy}}) do
+    options(conn)
+    |> Enum.into(%{})
+    |> Map.merge(authy)
+  end
 end
