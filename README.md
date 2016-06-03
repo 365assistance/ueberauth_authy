@@ -30,3 +30,27 @@
 
         config :authy,
           api_key: System.get_env("AUTHY_API_KEY")
+
+## Usage
+
+You must add a map `authy` to `conn.assigns` that contains the requisite members for each step; see the strategy docs for details. The reason for this is to avoid having an endpoint to which you can just pass a `phone_number` and allow spamming of people's phones using your twilio account.
+
+Setting `conn.status` to anything but nil will skip the strategy.
+
+### Example
+
+```
+plug :lookup_phone_number
+plug Ueberauth
+
+... <callbacks etc>
+
+defp lookup_phone_number(conn = %{params: ${user_id: user_id}}) do
+  case User.find(user_id) do
+    user = %User{} -> assign(:authy, %{phone_number: user.phone_number})
+    _ -> put_status(404)
+  end
+end
+
+...
+```
