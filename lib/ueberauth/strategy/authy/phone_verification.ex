@@ -29,7 +29,7 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
 
   Uses [set_errors!](https://github.com/ueberauth/ueberauth/blob/v0.2.0/lib/ueberauth/strategies/helpers.ex#L109) on error, placing :ueberauth_failure in assigns.
 
-  *Does nothing if conn.status is not nil*
+  *Does nothing (passes conn as-is) if conn.status is not nil*
 
   See https://docs.authy.com/phone_verification.html#sending-the-verification-code
   """
@@ -54,7 +54,7 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
 
   Uses [set_errors!](https://github.com/ueberauth/ueberauth/blob/v0.2.0/lib/ueberauth/strategies/helpers.ex#L109) on error, placing :ueberauth_failure in assigns.
 
-  *Does nothing if conn.status is not nil*
+  *Does nothing (passes conn as-is) if conn.status is not nil*
 
   See https://docs.authy.com/phone_verification.html#verifying-the-verification-code
   """
