@@ -29,14 +29,20 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
 
   Uses [set_errors!](https://github.com/ueberauth/ueberauth/blob/v0.2.0/lib/ueberauth/strategies/helpers.ex#L109) on error, placing :ueberauth_failure in assigns.
 
+  *Does nothing (passes conn as-is) if conn.status is not nil*
+
   See https://docs.authy.com/phone_verification.html#sending-the-verification-code
   """
-  def handle_request!(conn = %{assigns: %{authy: authy = %{phone_number: _}}}) do
+  def handle_request!(conn = %{assigns: %{authy: authy = %{phone_number: _}}, status: nil}) do
     params = authy_with_defaults(conn) |> Map.take([:via, :phone_number, :country_code, :locale, :custom_message])
     case Authy.PhoneVerification.start(params) do
       {:ok, _} -> conn
       {:error, message} -> set_errors!(conn, [error("authy", message)])
     end
+  end
+
+  def handle_request!(conn) do
+    conn
   end
 
   @doc """
@@ -48,14 +54,20 @@ defmodule Ueberauth.Strategy.Authy.PhoneVerification do
 
   Uses [set_errors!](https://github.com/ueberauth/ueberauth/blob/v0.2.0/lib/ueberauth/strategies/helpers.ex#L109) on error, placing :ueberauth_failure in assigns.
 
+  *Does nothing (passes conn as-is) if conn.status is not nil*
+
   See https://docs.authy.com/phone_verification.html#verifying-the-verification-code
   """
-  def handle_callback!(conn = %{assigns: %{authy: authy = %{phone_number: _, verification_code: _}}}) do
+  def handle_callback!(conn = %{assigns: %{authy: authy = %{phone_number: _, verification_code: _}}, status: nil}) do
     params = authy_with_defaults(conn) |> Map.take([:phone_number, :country_code, :verification_code])
     case Authy.PhoneVerification.check(authy) do
       {:ok, _} -> conn
       {:error, message} -> set_errors!(conn, [error("authy", message)])
     end
+  end
+
+  def handle_callback!(conn) do
+    conn
   end
 
   defp authy_with_defaults(conn = %{assigns: %{authy: authy}}) do
